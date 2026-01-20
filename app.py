@@ -27,9 +27,6 @@ def predict():
         "Price": price_prediction
     })
 
-
-
-
 @app.route("/")
 def home():
     return jsonify({"message": "ARIMA Stock Prediction API running"})
