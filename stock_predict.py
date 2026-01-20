@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import joblib as jb
+from PIL.ImagePalette import random
 from statsmodels.tsa.stattools import adfuller
 import warnings
 warnings.filterwarnings('ignore')
-from sklearn.metrics import root_mean_squared_error
+from sklearn.metrics import root_mean_squared_error,r2_score
 from pmdarima import auto_arima
+from pmdarima.model_selection import train_test_split
 import yfinance as yf
 import numpy as np
 
@@ -18,7 +20,8 @@ df = ticker.history(period="2y")
 df.reset_index(inplace=True)
 df['Company'] = company
 
-df.to_csv("data/stocks_last_2_years.csv", index=False)
+
+#df.to_csv("data/stocks_last_2_years.csv", index=False)
 
 
 df=pd.read_csv("data/stocks_last_2_years.csv")
@@ -43,8 +46,8 @@ def adf_test(timeseries):
 
 adf_test(ts_log)
 
-train_size=int(len(ts_log)*0.8)
-train,test=ts[:train_size],ts[train_size:]
+train,test=train_test_split(ts_log,test_size=0.2)
+
 
 
 model=auto_arima(
@@ -56,9 +59,7 @@ model=auto_arima(
     suppress_warnings=True,
     trend='t',
     stepwise=False,
-    d=None,
 )
-
 
 forecast=model.predict(n_periods=len(test))
 rmse=root_mean_squared_error(test,forecast)
