@@ -1,10 +1,8 @@
 import streamlit as st
 import requests
 import pandas as pd
-import requests as res
-import joblib as jb
 
-API_URL = "http://172.20.7.10:5001/predict"
+API_URL = "http://127.0.0.1:5000/predict"
 
 st.set_page_config(
     page_title="Stock Price Prediction",
@@ -14,22 +12,18 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-/* Background */
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #fff;
-}
-
-/* Sidebar */
-[data-testid="stSidebar"] {
-    background: #0b1020;
-    color: #fff;
-}
-
 /* Title */
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
+}
+/* Make chart background transparent */
+[data-testid="stChart"] > div {
+    background: transparent !important;
+}
+/* Remove plot background */
+canvas {
+    background: transparent !important;
 }
 
 /* Cards */
@@ -39,27 +33,10 @@ h1 {
     padding: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
-
-/* Buttons */
-.stButton>button {
-    background: linear-gradient(90deg, #22c55e, #06b6d4);
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 12px;
-    font-weight: 700;
-}
-
-/* Line Chart */
-.css-1q8dd3e canvas {
-    background: rgba(255,255,255,0.05) !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
 st.title("📈 Stock Price Prediction Dashboard")
-
-
 # Sidebar
 st.sidebar.title("📌 Options")
 company = st.sidebar.selectbox(
@@ -94,7 +71,7 @@ if st.sidebar.button("Predict"):
 
     st.metric("Predicted Price","Fetched")
 
-    chart_url=f"http://127.0.0.1:5001/chart?company={company}&date={target_date}"
+    chart_url=f"http://127.0.0.1:5000/chart?company={company}&date={target_date}"
     #st.image(chart_url,caption=f"{company} price trend")
 
 
@@ -117,7 +94,4 @@ if st.sidebar.button("Predict"):
 
         st.subheader(f"{company}'s Trend Stock Price")
 
-        st.line_chart(df,x_label="Date",y_label="close_price",color=["#FF0000", "#0000FF"])
-
-
-
+        st.line_chart(df,x_label="Date",y_label="close_price",color=["#FF0000", "#0000FF"],height=500,width=1000)
