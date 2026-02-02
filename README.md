@@ -27,6 +27,3 @@ streamlit run ui.py
 
 step 2 : Run the flsk api 
 python app.py
-
-for api documentation : swagger url
-http://172.20.7.19:5000/apidocs
