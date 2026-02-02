@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request,send_file
+from flask import Flask, jsonify, request
 import joblib as jb
 import pandas as pd
 import os

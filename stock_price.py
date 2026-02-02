@@ -41,7 +41,7 @@ for company, df in company_data.items():
     processed_data[company] = preprocess(df)
 print("Companies found:", list(processed_data.keys()))
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 processed_data['INDIA VIX_minute']['close'].plot(title="INDIA VIX_minute Closing Price",color="red")
 plt.show()
 
@@ -50,7 +50,7 @@ plt.show()
 #plt.show()
 
 #adf test(stationarity) check
-from statsmodels.tsa.stattools import adfuller
+from statsmodels.tsa.stattools import adfuller  # noqa: E402
 def adf_test(timeseries):
     result=adfuller(timeseries.dropna(),autolag=None,maxlag=1)
     return result[1]
@@ -107,8 +107,3 @@ res1=res.forecast(steps=len(test))
 print(f"Result:\n{res1}")
 
 print(f"Root Mean Squared Error:{root_mean_squared_error(test.values,res1.values)}")
-
-
-
-
-
