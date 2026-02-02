@@ -3,9 +3,7 @@ import joblib as jb
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
-import io
 
-from ui import target_date, company
 
 app = Flask(__name__)
 
