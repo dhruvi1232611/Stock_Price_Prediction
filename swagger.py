@@ -174,6 +174,4 @@ def price():
 
 api.add_resource(welcome,'/') # Only add 'welcome' to the root path
 if __name__ == '__main__':
-    #public_url = ngrok.connect(5000)
-    #print("Public URL:", public_url)
     app.run(debug=True,use_reloader=False)
